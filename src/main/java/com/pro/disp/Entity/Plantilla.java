@@ -1,8 +1,9 @@
 package com.pro.disp.Entity;
 
 
-import com.gruposolux.rcivil.pdisciplinario.domain.enumeration.EstadoProvidencia;
-import com.gruposolux.rcivil.pdisciplinario.domain.enumeration.TipoPlantilla;
+
+import com.pro.disp.Entity.Enum.EstadoProvidencia;
+import com.pro.disp.Entity.Enum.TipoPlantilla;
 
 import javax.persistence.*;
 import java.io.Serializable;

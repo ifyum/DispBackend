@@ -1,7 +1,8 @@
 package com.pro.disp.Entity;
 
 
-import com.gruposolux.rcivil.pdisciplinario.domain.enumeration.InstruccionesProvidencia;
+
+import com.pro.disp.Entity.Enum.InstruccionesProvidencia;
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -8,9 +8,6 @@ package com.pro.disp.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.gruposolux.rcivil.pdisciplinario.domain.enumeration.EstadoProvidencia;
-import com.gruposolux.rcivil.pdisciplinario.domain.enumeration.InstruccionesProvidencia;
-import com.gruposolux.rcivil.pdisciplinario.domain.enumeration.TipoProvidencia;
 
 import javax.persistence.*;
 import java.io.Serializable;

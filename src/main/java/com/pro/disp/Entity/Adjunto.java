@@ -2,8 +2,6 @@ package com.pro.disp.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.gruposolux.rcivil.pdisciplinario.domain.enumeration.FileUploadStatus;
-import com.gruposolux.rcivil.pdisciplinario.domain.enumeration.TipoAdjunto;
 
 import javax.persistence.*;
 import java.io.Serializable;
