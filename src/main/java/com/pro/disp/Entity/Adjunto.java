@@ -2,6 +2,8 @@ package com.pro.disp.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.pro.disp.Entity.Enum.FileUploadStatus;
+import com.pro.disp.Entity.Enum.TipoAdjunto;
 
 import javax.persistence.*;
 import java.io.Serializable;
