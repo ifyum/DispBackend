@@ -15,7 +15,7 @@ import java.util.Optional;
 /**sw
  * Spring Data  repository for the Grupo entity.
  */
-//@SuppressWarnings("unused")
+@SuppressWarnings("unused")
 @Repository
 public interface GrupoRepository extends JpaRepository<Grupo, Long> {
 

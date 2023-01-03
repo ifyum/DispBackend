@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 /**
  * Spring Data  repository for the FichaIngresoSdj entity.
  */
-//@SuppressWarnings("unused")
+@SuppressWarnings("unused")
 @Repository
 public interface FichaIngresoSdjRepository extends JpaRepository<FichaIngresoSdj, Long> {
 
