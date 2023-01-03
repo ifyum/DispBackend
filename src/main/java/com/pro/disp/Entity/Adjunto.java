@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pro.disp.Entity.Enum.FileUploadStatus;
 import com.pro.disp.Entity.Enum.TipoAdjunto;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -16,10 +17,12 @@ import java.util.Objects;
 /**
  * A Adjunto.
  */
-@Getter
-@Setter
+
 @Entity
 @Table(name = "adjunto")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Adjunto implements Serializable {
 
     private static final long serialVersionUID = 1L;
