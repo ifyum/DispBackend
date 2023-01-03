@@ -5,7 +5,7 @@
 
 version: 2
 updates:
-  - package-ecosystem: "" # See documentation for possible values
+  - package-ecosystem: maven
     directory: "/pom.xml"  
     schedule:
       interval: "weekly"
