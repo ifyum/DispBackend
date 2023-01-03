@@ -6,6 +6,6 @@
 version: 2
 updates:
   - package-ecosystem: maven
-    directory: "/pom.xml"  
+    directory: "/DispBackend/pom.xml"  
     schedule:
       interval: "weekly"
