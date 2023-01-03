@@ -2,7 +2,7 @@ package com.pro.disp.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import org.hibernate.envers.Audited;
+//import org.hibernate.envers.Audited;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -18,7 +18,7 @@ import java.time.Instant;
  * last modified by date.
  */
 @MappedSuperclass
-@Audited
+//@Audited
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractAuditingEntity implements Serializable {
 
