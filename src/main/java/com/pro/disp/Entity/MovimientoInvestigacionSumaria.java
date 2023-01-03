@@ -1,7 +1,7 @@
 package com.pro.disp.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.gruposolux.rcivil.pdisciplinario.domain.enumeration.EstadoInvestigacionSumaria;
+import com.pro.disp.Entity.Enum.EstadoInvestigacionSumaria;
 
 import javax.persistence.*;
 import java.io.Serializable;

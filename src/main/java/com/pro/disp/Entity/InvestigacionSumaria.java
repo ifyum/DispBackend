@@ -6,9 +6,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-/**
- * A InvestigacionSumaria.
- */
+
 @Entity
 @Table(name = "investigacion_sumaria")
 public class InvestigacionSumaria implements Serializable {

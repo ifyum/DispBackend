@@ -1,7 +1,8 @@
 package com.pro.disp.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gruposolux.rcivil.pdisciplinario.config.Constants;
+
+import com.pro.disp.config.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
 

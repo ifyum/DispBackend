@@ -1,8 +1,12 @@
 package com.pro.disp.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.gruposolux.rcivil.pdisciplinario.domain.enumeration.EstadoDerivacion;
-import com.gruposolux.rcivil.pdisciplinario.domain.enumeration.TipoDerivacion;
+
+import com.pro.disp.Entity.Enum.EstadoDerivacion;
+import com.pro.disp.Entity.Enum.TipoDerivacion;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,6 +20,9 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "derivacion")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Derivacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,157 +74,6 @@ public class Derivacion implements Serializable {
 //    @JoinColumn(name = "grupo_id")
 //    private Set<Grupo> gruposACopiar;
 
-    public Derivacion()
-    {
-        fechaDerivacion = Instant.now();
-    }
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getObservacion() {
-        return observacion;
-    }
-
-    public Derivacion observacion(String observacion) {
-        this.observacion = observacion;
-        return this;
-    }
-
-    public void setObservacion(String observacion) {
-        this.observacion = observacion;
-    }
-
-    public Instant getFechaDerivacion() {
-        return fechaDerivacion;
-    }
-
-    public Derivacion fechaDerivacion(Instant fechaDerivacion) {
-        this.fechaDerivacion = fechaDerivacion;
-        return this;
-    }
-
-    public void setFechaDerivacion(Instant fechaDerivacion) {
-        this.fechaDerivacion = fechaDerivacion;
-    }
-
-    public EstadoDerivacion getEstado() {
-        return estado;
-    }
-
-    public Derivacion estado(EstadoDerivacion estado) {
-        this.estado = estado;
-        return this;
-    }
-
-    public void setEstado(EstadoDerivacion estado) {
-        this.estado = estado;
-    }
-
-    public TipoDerivacion getTipo() {
-        return tipo;
-    }
-
-    public Derivacion tipo(TipoDerivacion tipo) {
-        this.tipo = tipo;
-        return this;
-    }
-
-    public void setTipo(TipoDerivacion tipo) {
-        this.tipo = tipo;
-    }
-
-    public Set<Documento> getHashesDerivacions() {
-        return documentos;
-    }
-
-    public Derivacion hashesDerivacions(Set<Documento> documentos) {
-        this.documentos = documentos;
-        return this;
-    }
-
-    public Derivacion addHashesDerivacion(Documento documento) {
-        this.documentos.add(documento);
-        documento.setDerivacion(this);
-        return this;
-    }
-
-    public Derivacion removeHashesDerivacion(Documento documento) {
-        this.documentos.remove(documento);
-        documento.setDerivacion(null);
-        return this;
-    }
-
-    public void setHashesDerivacions(Set<Documento> documentos) {
-        this.documentos = documentos;
-    }
-
-    public Providencia getProvidencia() {
-        return providencia;
-    }
-
-    public Derivacion providencia(Providencia providencia) {
-        this.providencia = providencia;
-        return this;
-    }
-
-    public void setProvidencia(Providencia providencia) {
-        this.providencia = providencia;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
-    public User getDerivadoPorUsuario() {
-        return derivadoPorUsuario;
-    }
-
-    public void setDerivadoPorUsuario(User derivadoPorUsuario) {
-        this.derivadoPorUsuario = derivadoPorUsuario;
-    }
-
-    public Grupo getDerivadoAGrupo() {
-        return derivadoAGrupo;
-    }
-
-    public void setDerivadoAGrupo(Grupo derivadoAGrupo) {
-        this.derivadoAGrupo = derivadoAGrupo;
-    }
-
-    public Grupo getDerivadoPorGrupo() {
-        return derivadoPorGrupo;
-    }
-
-    public void setDerivadoPorGrupo(Grupo derivadoPorGrupo) {
-        this.derivadoPorGrupo = derivadoPorGrupo;
-    }
-
-    public User getDerivadoAUsuario() {
-        return derivadoAUsuario;
-    }
-
-    public void setDerivadoAUsuario(User derivadoAUsuario) {
-        this.derivadoAUsuario = derivadoAUsuario;
-    }
-
-    public Set<Documento> getDocumentos() {
-        return documentos;
-    }
-
-    public void setDocumentos(Set<Documento> documentos) {
-        this.documentos = documentos;
-    }
-
-    public Set<Adjunto> getAdjuntos() {
-        return adjuntos;
-    }
-
-    public void setAdjuntos(Set<Adjunto> adjuntos) {
-        this.adjuntos = adjuntos;
-    }
 
     @Override
     public boolean equals(Object o) {

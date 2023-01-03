@@ -1,14 +1,10 @@
-/*
- *
- * este codigo cuenta con la participacion de Rubén Hernan Barrera Chavez
- *
- */
-
 package com.pro.disp.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pro.disp.Entity.Enum.EstadoProvidencia;
+import com.pro.disp.Entity.Enum.InstruccionesProvidencia;
+import com.pro.disp.Entity.Enum.TipoProvidencia;
 
 import javax.persistence.*;
 import java.io.Serializable;
