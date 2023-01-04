@@ -50,7 +50,7 @@ jobs:
         mvn clean package --file pom.xml
    
     - name: Copy Jar file to current directory
-    run:  |
+      run:  |
         cp target/DispBackend-0.0.1-SNAPSHOT.jar .
         docker build -f dispbackend .
         docker run -p 8080:8080 dispbackend
