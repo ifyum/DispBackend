@@ -27,7 +27,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Wait
-      uses: appleboy/wait-action@v1
+      uses: jakejarvis/wait-action@v0.1.1
       with:
         duration: '1m'
     - name: Build with Maven
