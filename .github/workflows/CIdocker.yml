@@ -17,7 +17,7 @@ jobs:
         env:
           POSTGRES_USER: user
           POSTGRES_PASSWORD: pass
-          POSTGRES_DB: spring-jwt
+          POSTGRES_DB: mydb
         ports:
           # will assign a random free host port
           - 5432/tcp
