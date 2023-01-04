@@ -47,7 +47,7 @@ jobs:
     - name: Build and deploy Spring project
       run: |
        
-        mvn clean package
+        mvn clean package --file pom.xml
         docker build -t my-spring-app .
         docker run -p 8080:8080 my-spring-app
 
