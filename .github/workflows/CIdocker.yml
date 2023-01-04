@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Start PostgreSQL container
+      uses: docker://postgres:12.2
+      env:
+        POSTGRES_USER: user
+        POSTGRES_PASSWORD: password
+        POSTGRES_DB: mydb
+      ports:
+        - 5432:5432
+      with:
+        options: -d
+    - name: Build and deploy Spring project
+      run: |
+        mvn clean package
+        docker build -t my-spring-app .
+        docker run -p 8080:8080 my-spring-app
+    - name: Connect Spring project to PostgreSQL database
+      run: |
+        sed -i "s/localhost/host.docker.internal/g" src/main/resources/application.properties
+        git add src/main/resources/application.properties
+        git commit -m "Connect to PostgreSQL database"
