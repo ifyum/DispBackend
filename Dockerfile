@@ -1,5 +1,5 @@
 FROM openjdk:latest
-ADD /home/runner/work/DispBackend/DispBackend/target/DispBackend-0.0.1-SNAPSHOT.jar auth-0.0.1-SNAPSHOT.jar
+ADD DispBackend-0.0.1-SNAPSHOT.jar auth-0.0.1-SNAPSHOT.jar
 ADD docker-utils/wait-for-it.sh wait-for-it.sh
 EXPOSE 8080
 CMD chmod +x wait-for-it.sh
