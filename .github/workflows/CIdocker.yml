@@ -48,7 +48,7 @@ jobs:
       run: |
        
         mvn clean package --file pom.xml
-        docker build -t my-spring-app .
+        docker build -t DispBackend .
         docker run -p 8080:8080 my-spring-app
 
     - name: Connect Spring project to PostgreSQL database
