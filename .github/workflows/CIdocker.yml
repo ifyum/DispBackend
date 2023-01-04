@@ -46,14 +46,14 @@ jobs:
     steps:
     - name: Build and deploy Spring project
       run: |
-        cd DispBackend
+        cd /
         mvn clean package
         docker build -t my-spring-app .
         docker run -p 8080:8080 my-spring-app
 
     - name: Connect Spring project to PostgreSQL database
       run: |
-       cd DispBackend
+       cd /
        sed -i "s/localhost/host.docker.internal/g" src/main/resources/application.properties
         git add src/main/resources/application.properties
         git commit -m "Connect to PostgreSQL database"
