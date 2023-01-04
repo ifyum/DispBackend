@@ -26,10 +26,10 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
-    - name: Sleep
-      uses: nkostelnik/sleep-action@v2
+    - name: Delay
+      uses: actions/delay@v1
       with:
-        duration: '10m'
+        duration: '1m'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
