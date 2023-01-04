@@ -26,8 +26,8 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
-    - name: Wait
-      uses: jakejarvis/wait-action@v0.1.1
+    - name: Sleep Action
+      uses: juliangruber/sleep-action@v2.0.0
       with:
         duration: '5m'
     - name: Build with Maven
