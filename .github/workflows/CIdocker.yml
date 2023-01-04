@@ -1,4 +1,5 @@
-name: CIDOCKER
+
+name: CI DOCKER
 
 on:
   push:
