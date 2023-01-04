@@ -26,8 +26,8 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
-    - name: Delay
-      uses: actions/delay@v1
+    - name: Wait
+      uses: appleboy/wait-action@v1
       with:
         duration: '1m'
     - name: Build with Maven
