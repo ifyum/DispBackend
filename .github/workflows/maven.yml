@@ -29,7 +29,7 @@ jobs:
     - name: Sleep Action
       uses: juliangruber/sleep-action@v2.0.0
       with:
-        duration: '5m'
+        time: '5m'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
