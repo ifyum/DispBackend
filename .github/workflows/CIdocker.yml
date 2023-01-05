@@ -22,7 +22,7 @@ jobs:
     - name: Install dependencies
       run: mvn install -DskipTests
     - name: Set up PostgreSQL
-      uses: postgres/setup-postgresql@v1
+      uses: postgres/setup-postgresql@v2
       with:
         version: 12
     - name: Start PostgreSQL
