@@ -42,7 +42,7 @@ jobs:
         version: 12
     - name: Start PostgreSQL
       run: |
-        sudo service postgresql start
+        
         psql -c "CREATE DATABASE springboot_app;" -U postgres
     - name: Run Spring Boot application
       run: |
