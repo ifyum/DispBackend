@@ -41,12 +41,14 @@ jobs:
         docker build -f Dockerfile  .
         docker images
         docker run -e POSTGRES_PASSWORD=pass -p 8080:8080 postgres
-
-    - name: Connect Spring project to PostgreSQL database
-      depends_on: Build and deploy Spring project
-      run: |
         sed -i "s/localhost/host.docker.internal/g" src/main/resources/application.properties
         git add src/main/resources/application.properties
         git commit -m "Connect to PostgreSQL database"
+#     - name: Connect Spring project to PostgreSQL database
+   
+#       run: |
+#         sed -i "s/localhost/host.docker.internal/g" src/main/resources/application.properties
+#         git add src/main/resources/application.properties
+#         git commit -m "Connect to PostgreSQL database"
 
 
