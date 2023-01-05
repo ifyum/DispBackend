@@ -44,7 +44,7 @@ jobs:
        
     - name: Connect to database
       continue-on-error: true
-      if: contains(toJson(steps['Build_and_deploy_Spring_project'].outputs), 'database system is ready to accept connections')
+      if: contains(toJson(steps['Build_and_deploy_Spring_project'].outputs), 'ready for start up')
       run: |
         sed -i "s/localhost/host.docker.internal/g" src/main/resources/application.properties
         git add src/main/resources/application.properties
