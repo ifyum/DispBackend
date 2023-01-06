@@ -15,7 +15,6 @@ jobs:
       postgres:
         image: postgres:12.2
         env:
-          #           POSTGRES_USER: user
           POSTGRES_PASSWORD: pass
           POSTGRES_DB: mydb
         ports:
@@ -42,6 +41,3 @@ jobs:
           which psql
           docker ps
           docker logs postgres
-#      - name: Test database connection
-#        run: |
-#          psql -h localhost -p 5432 -U postgres -d mydb -W $DB_PASSWORD
