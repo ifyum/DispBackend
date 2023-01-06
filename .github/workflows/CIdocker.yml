@@ -10,7 +10,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      DB_PASSWORD: ${{ secrets.pass }}
+      DB_PASSWORD: pass
     services:
       postgres:
         image: postgres:12.2
