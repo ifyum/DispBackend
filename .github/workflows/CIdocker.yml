@@ -51,6 +51,10 @@ jobs:
         docker build -f Dockerfile  .
         docker images
     #    docker run -e POSTGRES_PASSWORD=pass -p 8080:8080 postgres
+    - name: Configure Git user name and email
+      run: |
+        git config --global user.email "ifyumx@gmail.com"
+        git config --global user.name "Ifyum"
 
     - name: Connect Spring project to PostgreSQL database
       run: |
