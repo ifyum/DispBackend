@@ -23,7 +23,7 @@ public class Documento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
-    private Long id;
+    private long id;
 
     @Column (name = "numero_resolucion")
     private Long numeroResolucion;

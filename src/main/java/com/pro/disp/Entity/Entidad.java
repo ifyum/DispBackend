@@ -1,5 +1,8 @@
 package com.pro.disp.Entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -7,6 +10,8 @@ import java.util.Objects;
 /**
  * Created by sneiraillanes on 24-04-2019.
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "entidad")
 public class Entidad implements Serializable
@@ -18,23 +23,6 @@ public class Entidad implements Serializable
     @Column(name = "nombre")
     private String nombre;
 
-    public Entidad() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     @Override
     public boolean equals(Object o) {
