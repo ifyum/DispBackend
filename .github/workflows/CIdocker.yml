@@ -37,10 +37,12 @@ jobs:
     - name: Run Spring Boot application
       run: |
         mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/mydb,--spring.datasource.username=user,--spring.datasource.password=pass"
-    - name: Test database connection
+    - name: Test container
       run: |
               which psql
               docker ps
               docker logs postgres
+    - name: Test database connection
+      run: |
               psql -U user -d mydb -c "SELECT * FROM example"
               psql -h localhost -p 5432 -U user -d mydb
