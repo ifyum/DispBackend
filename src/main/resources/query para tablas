@@ -1,0 +1,423 @@
+CREATE TABLE accion_ficha_ingreso
+(
+    ficha_ingreso_sdj_id BIGINT       NOT NULL,
+    instrucciones        VARCHAR(255) NULL
+);
+
+CREATE TABLE adjunto
+(
+    id                        BIGINT       NOT NULL,
+    tipo_adjunto              VARCHAR(255) NULL,
+    nombre                    VARCHAR(255) NULL,
+    descripcion               VARCHAR(255) NULL,
+    fecha_creado              date         NULL,
+    fecha_subido              datetime     NULL,
+    archivo_nombre            VARCHAR(255) NULL,
+    archivo_mime_type         VARCHAR(255) NULL,
+    archivo_size              BIGINT       NULL,
+    estado                    VARCHAR(255) NULL,
+    archivo                   BLOB         NULL,
+    archivo_content_type      VARCHAR(255) NULL,
+    alfresco_node_id          VARCHAR(255) NULL,
+    alfresco_node_path        VARCHAR(255) NULL,
+    local_path                VARCHAR(255) NULL,
+    jhi_hash                  VARCHAR(255) NULL,
+    providencia_id            BIGINT       NULL,
+    movimiento_providencia_id BIGINT       NULL,
+    derivacion_id             BIGINT       NULL,
+    respuesta_id              BIGINT       NULL,
+    CONSTRAINT pk_adjunto PRIMARY KEY (id)
+);
+
+CREATE TABLE derivacion
+(
+    id                      BIGINT       NOT NULL,
+    observacion             VARCHAR(255) NULL,
+    fecha_derivacion        datetime     NULL,
+    estado                  VARCHAR(255) NULL,
+    tipo                    VARCHAR(255) NULL,
+    providencia_id          BIGINT       NULL,
+    jhi_user_id             BIGINT       NULL,
+    derivado_por_usuario_id BIGINT       NULL,
+    derivadoagrupo_id       BIGINT       NULL,
+    derivado_por_grupo_id   BIGINT       NULL,
+    CONSTRAINT pk_derivacion PRIMARY KEY (id)
+);
+
+CREATE TABLE documento
+(
+    id                        BIGINT       NOT NULL,
+    numero_resolucion         BIGINT       NULL,
+    descripcion               VARCHAR(255) NULL,
+    contenido                 VARCHAR(255) NULL,
+    fecha_creado              date         NULL,
+    archivo_nombre            VARCHAR(255) NULL,
+    archivo_mime_type         VARCHAR(255) NULL,
+    archivo_size              BIGINT       NULL,
+    archivo                   BLOB         NULL,
+    archivo_content_type      VARCHAR(255) NULL,
+    alfresco_node_id          VARCHAR(255) NULL,
+    alfresco_node_path        VARCHAR(255) NULL,
+    local_path                VARCHAR(255) NULL,
+    jhi_hash                  VARCHAR(255) NULL,
+    providencia_id            BIGINT       NULL,
+    derivacion_id             BIGINT       NULL,
+    movimiento_providencia_id BIGINT       NULL,
+    respuesta_id              BIGINT       NULL,
+    tipo                      VARCHAR(255) NULL,
+    version                   INT          NULL,
+    CONSTRAINT pk_documento PRIMARY KEY (id)
+);
+
+CREATE TABLE entidad
+(
+    id     BIGINT AUTO_INCREMENT NOT NULL,
+    nombre VARCHAR(255)          NULL,
+    CONSTRAINT pk_entidad PRIMARY KEY (id)
+);
+
+CREATE TABLE ficha_ingreso_sdj
+(
+    id                 BIGINT       NOT NULL,
+    fecha_inicio       datetime     NULL,
+    observacion        VARCHAR(255) NULL,
+    plazo              INT          NULL,
+    fecha_hasta        datetime     NULL,
+    numero_providencia BIGINT       NULL,
+    numero_referencia  BIGINT       NULL,
+    tipo_solicitud     VARCHAR(255) NULL,
+    atentamente        VARCHAR(255) NULL,
+    CONSTRAINT pk_ficha_ingreso_sdj PRIMARY KEY (id)
+);
+
+CREATE TABLE grupo
+(
+    id     BIGINT       NOT NULL,
+    nombre VARCHAR(255) NOT NULL,
+    CONSTRAINT pk_grupo PRIMARY KEY (id)
+);
+
+CREATE TABLE instruccion_providencia
+(
+    providencia_id BIGINT       NOT NULL,
+    instrucciones  VARCHAR(255) NULL
+);
+
+CREATE TABLE instrucciones
+(
+    id     BIGINT AUTO_INCREMENT NOT NULL,
+    nombre VARCHAR(255)          NULL,
+    CONSTRAINT pk_instrucciones PRIMARY KEY (id)
+);
+
+CREATE TABLE investigacion_sumaria
+(
+    id         BIGINT       NOT NULL,
+    compo_tres VARCHAR(255) NULL,
+    CONSTRAINT pk_investigacion_sumaria PRIMARY KEY (id)
+);
+
+CREATE TABLE jhi_authority
+(
+    name        VARCHAR(50)  NOT NULL,
+    descripcion VARCHAR(255) NULL,
+    CONSTRAINT pk_jhi_authority PRIMARY KEY (name)
+);
+
+CREATE TABLE jhi_perfil_authority
+(
+    authority_name VARCHAR(50) NOT NULL,
+    perfil_id      BIGINT      NOT NULL,
+    CONSTRAINT pk_jhi_perfil_authority PRIMARY KEY (authority_name, perfil_id)
+);
+
+CREATE TABLE jhi_persistent_audit_event
+(
+    event_id   BIGINT       NOT NULL,
+    principal  VARCHAR(255) NOT NULL,
+    event_date datetime     NULL,
+    event_type VARCHAR(255) NULL,
+    CONSTRAINT pk_jhi_persistent_audit_event PRIMARY KEY (event_id)
+);
+
+CREATE TABLE jhi_persistent_audit_evt_data
+(
+    event_id BIGINT       NOT NULL,
+    value    VARCHAR(255) NULL,
+    name     VARCHAR(255) NOT NULL,
+    CONSTRAINT pk_jhi_persistent_audit_evt_data PRIMARY KEY (event_id, name)
+);
+
+CREATE TABLE jhi_user
+(
+    id                 BIGINT       NOT NULL,
+    created_by         VARCHAR(50)  NOT NULL,
+    created_date       datetime     NOT NULL,
+    last_modified_by   VARCHAR(50)  NULL,
+    last_modified_date datetime     NULL,
+    login              VARCHAR(50)  NOT NULL,
+    password_hash      VARCHAR(60)  NOT NULL,
+    first_name         VARCHAR(50)  NULL,
+    last_name          VARCHAR(50)  NULL,
+    email              VARCHAR(254) NULL,
+    activated          BIT(1)       NOT NULL,
+    lang_key           VARCHAR(6)   NULL,
+    image_url          VARCHAR(256) NULL,
+    activation_key     VARCHAR(20)  NULL,
+    reset_key          VARCHAR(20)  NULL,
+    reset_date         datetime     NULL,
+    perfil_id          BIGINT       NOT NULL,
+    grupo_id           BIGINT       NULL,
+    CONSTRAINT pk_jhi_user PRIMARY KEY (id)
+);
+
+CREATE TABLE jhi_user_authority
+(
+    authority_name VARCHAR(50) NOT NULL,
+    user_id        BIGINT      NOT NULL,
+    CONSTRAINT pk_jhi_user_authority PRIMARY KEY (authority_name, user_id)
+);
+
+CREATE TABLE mov_invest_sum
+(
+    id                       BIGINT       NOT NULL,
+    estado_anterior          VARCHAR(255) NULL,
+    estado_nuevo             VARCHAR(255) NULL,
+    fecha                    datetime     NULL,
+    investigacion_sumaria_id BIGINT       NULL,
+    CONSTRAINT pk_mov_invest_sum PRIMARY KEY (id)
+);
+
+CREATE TABLE mov_sumario_admin
+(
+    id                        BIGINT       NOT NULL,
+    estado_anterior           VARCHAR(255) NULL,
+    estado_nuevo              VARCHAR(255) NULL,
+    fecha                     datetime     NULL,
+    sumario_administrativo_id BIGINT       NULL,
+    CONSTRAINT pk_mov_sumario_admin PRIMARY KEY (id)
+);
+
+CREATE TABLE movimiento_providencia
+(
+    id              BIGINT       NOT NULL,
+    estado_anterior VARCHAR(255) NULL,
+    estado_nuevo    VARCHAR(255) NULL,
+    fecha           datetime     NULL,
+    accion          VARCHAR(255) NULL,
+    providencia_id  BIGINT       NULL,
+    plazo_id        BIGINT       NULL,
+    comentario      VARCHAR(255) NULL,
+    user_id         BIGINT       NULL,
+    numero_dgd      BIGINT       NULL,
+    numero_dgdp     BIGINT       NULL,
+    CONSTRAINT pk_movimiento_providencia PRIMARY KEY (id)
+);
+
+CREATE TABLE notificacion_in_browser
+(
+    id         BIGINT       NOT NULL,
+    contenido  VARCHAR(255) NULL,
+    user_id    BIGINT       NULL,
+    grupo_id   BIGINT       NULL,
+    created_at datetime     NOT NULL,
+    visto      BIT(1)       NULL,
+    CONSTRAINT pk_notificacion_in_browser PRIMARY KEY (id)
+);
+
+CREATE TABLE perfil
+(
+    id     BIGINT       NOT NULL,
+    nombre VARCHAR(255) NOT NULL,
+    CONSTRAINT pk_perfil PRIMARY KEY (id)
+);
+
+CREATE TABLE plantilla
+(
+    id        BIGINT       NOT NULL,
+    nombre    VARCHAR(255) NULL,
+    contenido VARCHAR(255) NULL,
+    tipo      VARCHAR(255) NULL,
+    estado    VARCHAR(255) NULL,
+    CONSTRAINT pk_plantilla PRIMARY KEY (id)
+);
+
+CREATE TABLE plazo
+(
+    id     BIGINT       NOT NULL,
+    nombre VARCHAR(255) NULL,
+    dias   INT          NULL,
+    CONSTRAINT pk_plazo PRIMARY KEY (id)
+);
+
+CREATE TABLE providencia
+(
+    id                        BIGINT       NOT NULL,
+    numero_referencia         BIGINT       NULL,
+    numero_providencia        BIGINT       NULL,
+    numero_dgdp               BIGINT       NULL,
+    folio                     BIGINT       NULL,
+    numero_dgd                BIGINT       NULL,
+    numero_despacho           BIGINT       NULL,
+    estado_actual             VARCHAR(255) NULL,
+    providencia_madre_id      BIGINT       NULL,
+    etapa                     VARCHAR(255) NULL,
+    sub_etapa                 VARCHAR(255) NULL,
+    requisito                 VARCHAR(255) NULL,
+    tipo                      VARCHAR(255) NULL,
+    comentario                VARCHAR(255) NULL,
+    fecha_solicitud           datetime     NULL,
+    fecha_creacion            datetime     NULL,
+    fecha_hasta               datetime     NULL,
+    run_solicitante           VARCHAR(255) NULL,
+    nombre_solicitante        VARCHAR(255) NULL,
+    run_implicado             VARCHAR(255) NULL,
+    nombre_implicado          VARCHAR(255) NULL,
+    sumario_administrativo_id BIGINT       NULL,
+    investigacion_sumaria_id  BIGINT       NULL,
+    entidad_solicitante_id    BIGINT       NULL,
+    entidad_implicada_id      BIGINT       NULL,
+    nombre_fiscal_asignado    VARCHAR(255) NULL,
+    standby                   BIT(1)       NULL,
+    CONSTRAINT pk_providencia PRIMARY KEY (id)
+);
+
+CREATE TABLE respuesta
+(
+    id                        BIGINT AUTO_INCREMENT NOT NULL,
+    comentario                VARCHAR(255)          NULL,
+    providencia_id            BIGINT                NULL,
+    movimiento_providencia_id BIGINT                NULL,
+    guardada                  BIT(1)                NULL,
+    user_id                   BIGINT                NULL,
+    estado_providencia        VARCHAR(255)          NULL,
+    CONSTRAINT pk_respuesta PRIMARY KEY (id)
+);
+
+CREATE TABLE sumario_administrativo
+(
+    id                       BIGINT       NOT NULL,
+    campo_uno                VARCHAR(255) NULL,
+    investigacion_sumaria_id BIGINT       NULL,
+    CONSTRAINT pk_sumario_administrativo PRIMARY KEY (id)
+);
+
+ALTER TABLE jhi_user
+    ADD CONSTRAINT uc_jhi_user_email UNIQUE (email);
+
+ALTER TABLE jhi_user
+    ADD CONSTRAINT uc_jhi_user_login UNIQUE (login);
+
+ALTER TABLE sumario_administrativo
+    ADD CONSTRAINT uc_sumario_administrativo_investigacionsumaria UNIQUE (investigacion_sumaria_id);
+
+ALTER TABLE adjunto
+    ADD CONSTRAINT FK_ADJUNTO_ON_DERIVACION FOREIGN KEY (derivacion_id) REFERENCES derivacion (id);
+
+ALTER TABLE adjunto
+    ADD CONSTRAINT FK_ADJUNTO_ON_MOVIMIENTOPROVIDENCIA FOREIGN KEY (movimiento_providencia_id) REFERENCES movimiento_providencia (id);
+
+ALTER TABLE adjunto
+    ADD CONSTRAINT FK_ADJUNTO_ON_PROVIDENCIA FOREIGN KEY (providencia_id) REFERENCES providencia (id);
+
+ALTER TABLE adjunto
+    ADD CONSTRAINT FK_ADJUNTO_ON_RESPUESTA FOREIGN KEY (respuesta_id) REFERENCES respuesta (id);
+
+ALTER TABLE derivacion
+    ADD CONSTRAINT FK_DERIVACION_ON_DERIVADOAGRUPO FOREIGN KEY (derivadoagrupo_id) REFERENCES grupo (id);
+
+ALTER TABLE derivacion
+    ADD CONSTRAINT FK_DERIVACION_ON_DERIVADOPORGRUPO FOREIGN KEY (derivado_por_grupo_id) REFERENCES grupo (id);
+
+ALTER TABLE derivacion
+    ADD CONSTRAINT FK_DERIVACION_ON_DERIVADOPORUSUARIO FOREIGN KEY (derivado_por_usuario_id) REFERENCES jhi_user (id);
+
+ALTER TABLE derivacion
+    ADD CONSTRAINT FK_DERIVACION_ON_JHI_USER FOREIGN KEY (jhi_user_id) REFERENCES jhi_user (id);
+
+ALTER TABLE derivacion
+    ADD CONSTRAINT FK_DERIVACION_ON_PROVIDENCIA FOREIGN KEY (providencia_id) REFERENCES providencia (id);
+
+ALTER TABLE documento
+    ADD CONSTRAINT FK_DOCUMENTO_ON_DERIVACION FOREIGN KEY (derivacion_id) REFERENCES derivacion (id);
+
+ALTER TABLE documento
+    ADD CONSTRAINT FK_DOCUMENTO_ON_MOVIMIENTOPROVIDENCIA FOREIGN KEY (movimiento_providencia_id) REFERENCES movimiento_providencia (id);
+
+ALTER TABLE documento
+    ADD CONSTRAINT FK_DOCUMENTO_ON_PROVIDENCIA FOREIGN KEY (providencia_id) REFERENCES providencia (id);
+
+ALTER TABLE documento
+    ADD CONSTRAINT FK_DOCUMENTO_ON_RESPUESTA FOREIGN KEY (respuesta_id) REFERENCES respuesta (id);
+
+ALTER TABLE jhi_user
+    ADD CONSTRAINT FK_JHI_USER_ON_GRUPO FOREIGN KEY (grupo_id) REFERENCES grupo (id);
+
+ALTER TABLE jhi_user
+    ADD CONSTRAINT FK_JHI_USER_ON_PERFIL FOREIGN KEY (perfil_id) REFERENCES perfil (id);
+
+ALTER TABLE movimiento_providencia
+    ADD CONSTRAINT FK_MOVIMIENTO_PROVIDENCIA_ON_PLAZO FOREIGN KEY (plazo_id) REFERENCES plazo (id);
+
+ALTER TABLE movimiento_providencia
+    ADD CONSTRAINT FK_MOVIMIENTO_PROVIDENCIA_ON_PROVIDENCIA FOREIGN KEY (providencia_id) REFERENCES providencia (id);
+
+ALTER TABLE movimiento_providencia
+    ADD CONSTRAINT FK_MOVIMIENTO_PROVIDENCIA_ON_USER FOREIGN KEY (user_id) REFERENCES jhi_user (id);
+
+ALTER TABLE mov_invest_sum
+    ADD CONSTRAINT FK_MOV_INVEST_SUM_ON_INVESTIGACIONSUMARIA FOREIGN KEY (investigacion_sumaria_id) REFERENCES investigacion_sumaria (id);
+
+ALTER TABLE mov_sumario_admin
+    ADD CONSTRAINT FK_MOV_SUMARIO_ADMIN_ON_SUMARIOADMINISTRATIVO FOREIGN KEY (sumario_administrativo_id) REFERENCES sumario_administrativo (id);
+
+ALTER TABLE notificacion_in_browser
+    ADD CONSTRAINT FK_NOTIFICACION_IN_BROWSER_ON_GRUPO FOREIGN KEY (grupo_id) REFERENCES grupo (id);
+
+ALTER TABLE notificacion_in_browser
+    ADD CONSTRAINT FK_NOTIFICACION_IN_BROWSER_ON_USER FOREIGN KEY (user_id) REFERENCES jhi_user (id);
+
+ALTER TABLE providencia
+    ADD CONSTRAINT FK_PROVIDENCIA_ON_ENTIDADIMPLICADA FOREIGN KEY (entidad_implicada_id) REFERENCES entidad (id);
+
+ALTER TABLE providencia
+    ADD CONSTRAINT FK_PROVIDENCIA_ON_ENTIDADSOLICITANTE FOREIGN KEY (entidad_solicitante_id) REFERENCES entidad (id);
+
+ALTER TABLE providencia
+    ADD CONSTRAINT FK_PROVIDENCIA_ON_INVESTIGACIONSUMARIA FOREIGN KEY (investigacion_sumaria_id) REFERENCES investigacion_sumaria (id);
+
+ALTER TABLE providencia
+    ADD CONSTRAINT FK_PROVIDENCIA_ON_SUMARIOADMINISTRATIVO FOREIGN KEY (sumario_administrativo_id) REFERENCES sumario_administrativo (id);
+
+ALTER TABLE respuesta
+    ADD CONSTRAINT FK_RESPUESTA_ON_MOVIMIENTOPROVIDENCIA FOREIGN KEY (movimiento_providencia_id) REFERENCES movimiento_providencia (id);
+
+ALTER TABLE respuesta
+    ADD CONSTRAINT FK_RESPUESTA_ON_PROVIDENCIA FOREIGN KEY (providencia_id) REFERENCES providencia (id);
+
+ALTER TABLE respuesta
+    ADD CONSTRAINT FK_RESPUESTA_ON_USER FOREIGN KEY (user_id) REFERENCES jhi_user (id);
+
+ALTER TABLE sumario_administrativo
+    ADD CONSTRAINT FK_SUMARIO_ADMINISTRATIVO_ON_INVESTIGACIONSUMARIA FOREIGN KEY (investigacion_sumaria_id) REFERENCES investigacion_sumaria (id);
+
+ALTER TABLE accion_ficha_ingreso
+    ADD CONSTRAINT fk_accion_ficha_ingreso_on_ficha_ingreso_sdj FOREIGN KEY (ficha_ingreso_sdj_id) REFERENCES ficha_ingreso_sdj (id);
+
+ALTER TABLE instruccion_providencia
+    ADD CONSTRAINT fk_instruccion_providencia_on_providencia FOREIGN KEY (providencia_id) REFERENCES providencia (id);
+
+ALTER TABLE jhi_persistent_audit_evt_data
+    ADD CONSTRAINT fk_jhi_persistent_audit_evt_data_on_persistent_audit_event FOREIGN KEY (event_id) REFERENCES jhi_persistent_audit_event (event_id);
+
+ALTER TABLE jhi_perfil_authority
+    ADD CONSTRAINT fk_jhiperaut_on_authority FOREIGN KEY (authority_name) REFERENCES jhi_authority (name);
+
+ALTER TABLE jhi_perfil_authority
+    ADD CONSTRAINT fk_jhiperaut_on_perfil FOREIGN KEY (perfil_id) REFERENCES perfil (id);
+
+ALTER TABLE jhi_user_authority
+    ADD CONSTRAINT fk_jhiuseaut_on_authority FOREIGN KEY (authority_name) REFERENCES jhi_authority (name);
+
+ALTER TABLE jhi_user_authority
+    ADD CONSTRAINT fk_jhiuseaut_on_user FOREIGN KEY (user_id) REFERENCES jhi_user (id);
