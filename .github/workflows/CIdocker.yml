@@ -20,7 +20,7 @@ jobs:
           POSTGRES_DB: mydb
         ports:
           # will assign a random free host port
-          - 5432/tcp
+          - 5432:5432
         # needed because the postgres container does not provide a healthcheck
         options: --name postgres --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     
@@ -44,4 +44,4 @@ jobs:
               docker logs postgres
     - name: Test database connection
       run: |
-              psql -h localhost -p 49153 -U postgres -d mydb -W $DB_PASSWORD
+              psql -h localhost -p 5432 -U postgres -d mydb -W $DB_PASSWORD
