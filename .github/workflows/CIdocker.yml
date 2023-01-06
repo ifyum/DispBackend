@@ -49,4 +49,4 @@ jobs:
         mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/mydb,--spring.datasource.username=user,--spring.datasource.password=pass"
     - name: Test database connection
       run: |
-            psql -c "SELECT 1" -U user -d mydb -h "pass"
+            psql -c "SELECT 1" -U user -d mydb -h pass
