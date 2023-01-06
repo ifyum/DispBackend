@@ -1,3 +1,5 @@
+
+
 name: Build and Deploy
 
 on:
@@ -42,3 +44,20 @@ jobs:
           \l
           docker ps
           docker logs postgres
+
+           <%
+          host = 'localhost'
+           username = 'postgres'
+          password = 'pass'
+          database = mydb
+
+            if ENV['DATABASE_URL']
+           matches = ENV['DATABASE_URL'].match(/:\/\/(?<username>.+):(?<password>.+)@(?<host>.+)\/(?<database>.+)$/)
+          if matches
+            host     = matches[:host]
+          username = matches[:username]
+          password = matches[:password]
+          database = matches[:database]
+            end
+            end
+           %>
