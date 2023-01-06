@@ -31,8 +31,8 @@ jobs:
           java-version: 11
           distribution: 'temurin'
           cache: maven
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
+#       - name: Build with Maven
+#         run: mvn -B package --file pom.xml
       - name: Run Spring Boot application
         run: |
           mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/mydb,--spring.datasource.username=postgres,--spring.datasource.password=pass"
