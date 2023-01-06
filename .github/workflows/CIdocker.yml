@@ -36,7 +36,7 @@ jobs:
         run: mvn -B package --file pom.xml
       - name: Run Spring Boot application
         run: |
-          mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/mydb,--spring.datasource.user=prostgres,--spring.datasource.password=pass"
+          mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/mydb,--spring.datasource.user=postgres,--spring.datasource.password=pass"
       - name: Test container
         run: |
           which psql
