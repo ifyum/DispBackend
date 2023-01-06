@@ -42,8 +42,8 @@ jobs:
         version: 12
     - name: Start PostgreSQL
       run: |
-        
-        psql -c "CREATE DATABASE springboot_app;" -U postgres
+                docker build -f Dockerfile  .
+                psql -c "CREATE DATABASE springboot_app;" -U postgres
     - name: Run Spring Boot application
       run: |
         mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/springboot_app,--spring.datasource.username=postgres,--spring.datasource.password=postgres"
