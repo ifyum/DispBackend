@@ -50,7 +50,7 @@ jobs:
         mvn clean package --file pom.xml
         docker build -f Dockerfile  .
         docker images
-        docker run -e POSTGRES_PASSWORD=pass -p 8080:8080 postgres
+    #    docker run -e POSTGRES_PASSWORD=pass -p 8080:8080 postgres
 
     - name: Connect Spring project to PostgreSQL database
       run: |
