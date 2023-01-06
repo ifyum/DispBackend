@@ -49,4 +49,6 @@ jobs:
         mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/mydb,--spring.datasource.username=user,--spring.datasource.password=pass"
     - name: Test database connection
       run: |
-             psql -U user -d mydb -c "CREATE TABLE example (id INTEGER PRIMARY KEY, name VARCHAR(255));"
+              docker ps
+              docker logs postgres
+               psql -U user -d mydb -c "CREATE TABLE example (id INTEGER PRIMARY KEY, name VARCHAR(255));"
