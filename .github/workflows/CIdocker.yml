@@ -43,6 +43,7 @@ jobs:
     - name: Start PostgreSQL
       run: |
                 docker build -f Dockerfile  .
+                docker run -e POSTGRES_PASSWORD=pass -p 8080:8080 postgres
                 psql -c "CREATE DATABASE springboot_app;" -U postgres
     - name: Run Spring Boot application
       run: |
