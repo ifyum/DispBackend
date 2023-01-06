@@ -10,7 +10,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      DB_PASSWORD: pass
+      DB_PASSWORD: postgres
     services:
       postgres:
         image: postgres:12.2
