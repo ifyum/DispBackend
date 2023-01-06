@@ -40,24 +40,9 @@ jobs:
           mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/mydb,--spring.datasource.username=postgres,--spring.datasource.password=pass"
       - name: Test container
         run: |
+          psql -c 'create role shippable with superuser;' -U postgres
           psql -h localhost -U postgres -W pass
           \l
           docker ps
           docker logs postgres
 
-           <%
-          host = 'localhost'
-           username = 'postgres'
-          password = 'pass'
-          database = mydb
-
-            if ENV['DATABASE_URL']
-           matches = ENV['DATABASE_URL'].match(/:\/\/(?<username>.+):(?<password>.+)@(?<host>.+)\/(?<database>.+)$/)
-          if matches
-            host     = matches[:host]
-          username = matches[:username]
-          password = matches[:password]
-          database = matches[:database]
-            end
-            end
-           %>
