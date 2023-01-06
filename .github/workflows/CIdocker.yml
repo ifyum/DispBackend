@@ -43,6 +43,4 @@ jobs:
               docker logs postgres
     - name: Test database connection
       run: |
-             docker logs postgres
-              psql -U user -d mydb -c "SELECT * FROM example"
               psql -h localhost -p 5432 -U user -d mydb
