@@ -1,5 +1,4 @@
-
-name: CI DBconection
+name: Build and Deploy
 
 on:
   push:
@@ -8,9 +7,9 @@ on:
     branches: [ "develop" ]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
+    
     services:
       postgres:
         image: postgres:12.2
@@ -23,31 +22,34 @@ jobs:
           - 5432/tcp
         # needed because the postgres container does not provide a healthcheck
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-   
+    
     steps:
     - uses: actions/checkout@v3
-    - name: Set up JDK 11
+    - name: Set up JDK
       uses: actions/setup-java@v3
       with:
-        java-version: '11'
+        java-version: 11
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Build and deploy Spring project
-      run: |
-       
-        mvn clean package --file pom.xml
-        docker build -f Dockerfile  .
-        docker images
-        docker run -e POSTGRES_PASSWORD=pass -p 8080:8080 postgres
-       
-    - name: Connect to database
-      continue-on-error: true
-      if: contains(toJson(steps['Build_and_deploy_Spring_project'].outputs), 'ready for start up')
-      run: |
-        sed -i "s/localhost/host.docker.internal/g" src/main/resources/application.properties
-        git add src/main/resources/application.properties
-        git commit -m "Connect to PostgreSQL database"
+   
+#     - name: Install dependencies
+#       run: mvn install -DskipTests
+#     - name: Set up PostgreSQL
+#       uses: nnhy/postgresql-action@v1.0
+#       with:
+#         version: 12
+    - name: Start docker build dockerfile
+      run: |    
 
-
+                which psql
+    - name: Run Spring Boot application
+      run: |
+        mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/mydb,--spring.datasource.username=user,--spring.datasource.password=pass"
+    - name: Test database connection
+      run: |
+              docker ps
+              docker logs postgres
+              psql -U user -d mydb -c "SELECT * FROM example"
+              psql -h localhost -p 5432 -U user -d mydb
