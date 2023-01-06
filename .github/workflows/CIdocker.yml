@@ -1,5 +1,4 @@
-
-name: CI DBconection
+name: Build and Deploy
 
 on:
   push:
@@ -8,57 +7,41 @@ on:
     branches: [ "develop" ]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
+    env:
+      DB_PASSWORD: postgres
     services:
       postgres:
         image: postgres:12.2
         env:
-          POSTGRES_USER: user
+          #           POSTGRES_USER: user
           POSTGRES_PASSWORD: pass
           POSTGRES_DB: mydb
         ports:
           # will assign a random free host port
-          - 5432/tcp
+          - 5432:5432
         # needed because the postgres container does not provide a healthcheck
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-   
-   
-   
+        options: --name postgres --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: maven
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
-#    steps:
-#       - uses: actions/checkout@v1
-
-#       - name: Set up JDK 11
-#         uses: actions/setup-java@v1
-#         with:
-#           java-version: 1.8
-#     steps:
-    - name: Build and deploy Spring project
-      run: |
-       
-        mvn clean package --file pom.xml
-        docker build -f Dockerfile  .
-        docker images
-    #    docker run -e POSTGRES_PASSWORD=pass -p 8080:8080 postgres
-    - name: Configure Git user name and email
-      run: |
-        git config --global user.email "ifyumx@gmail.com"
-        git config --global user.name "Ifyum"
-
-    - name: Connect Spring project to PostgreSQL database
-      run: |
-       
-       sed -i "s/localhost/host.docker.internal/g" src/main/resources/application.properties
-        git add src/main/resources/application.properties
-        git commit -m "Connect to PostgreSQL database"
+      - uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: 'temurin'
+          cache: maven
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+      - name: Run Spring Boot application
+        run: |
+          mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/mydb,--spring.datasource.user=user,--spring.datasource.password=pass"
+      - name: Test container
+        run: |
+          which psql
+          docker ps
+          docker logs postgres
+#      - name: Test database connection
+#        run: |
+#          psql -h localhost -p 5432 -U postgres -d mydb -W $DB_PASSWORD
