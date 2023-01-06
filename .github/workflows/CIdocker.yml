@@ -22,7 +22,7 @@ jobs:
           # will assign a random free host port
           - 5432/tcp
         # needed because the postgres container does not provide a healthcheck
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        options: --name postgres --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     
     steps:
     - uses: actions/checkout@v3
@@ -34,16 +34,12 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-   
-    - name: Start docker build dockerfile
-      run: |    
-
-                which psql
     - name: Run Spring Boot application
       run: |
         mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/mydb,--spring.datasource.username=user,--spring.datasource.password=pass"
     - name: Test database connection
       run: |
+              which psql
               docker ps
               docker logs postgres
               psql -U user -d mydb -c "SELECT * FROM example"
