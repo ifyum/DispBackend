@@ -9,7 +9,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+    env:
+      DB_PASSWORD: ${{ secrets.pass }}
     services:
       postgres:
         image: postgres:12.2
@@ -43,4 +44,4 @@ jobs:
               docker logs postgres
     - name: Test database connection
       run: |
-              psql -h localhost -p 49153 -U user -d mydb -W pass
+              psql -h localhost -p 49153 -U user -d mydb -W $DB_PASSWORD
