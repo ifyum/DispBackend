@@ -40,10 +40,10 @@ jobs:
       uses: nnhy/postgresql-action@v1.0
       with:
         version: 12
-    - name: Start PostgreSQL
+    - name: Start docker build dockerfile
       run: |    
                 docker build -f Dockerfile  .
-                psql -c "SELECT 1" -U postgres
+               
     - name: Run Spring Boot application
       run: |
         mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/mydb,--spring.datasource.username=user,--spring.datasource.password=pass"
