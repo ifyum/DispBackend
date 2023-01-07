@@ -12,7 +12,7 @@ jobs:
           name: Set up PostgreSQL
           command: |
             docker run -d --name postgres -e POSTGRES_HOST_AUTH_METHOD=trust -e POSTGRES_DB=mydb -p 5432:5432 postgres:12.2
-            sleep 5
+          
       - run:
           name: Build with Maven
           command: mvn -B package --file pom.xml
