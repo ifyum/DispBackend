@@ -21,10 +21,10 @@ jobs:
       - run:
           name: Build with Maven
           command: mvn -B package --file pom.xml
-      - run:
-          name: Run Spring Boot application
-          command: |
-            mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/postgres,--spring.datasource.user=postgres,--spring.datasource.password=1234"
+#      - run:
+#          name: Run Spring Boot application
+#          command: |
+#            mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/postgres,--spring.datasource.user=postgres,--spring.datasource.password=1234"
 
     workflows:
       test_my_app:
