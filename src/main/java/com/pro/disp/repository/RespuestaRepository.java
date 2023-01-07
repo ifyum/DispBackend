@@ -20,7 +20,7 @@ import java.util.Optional;
 public interface RespuestaRepository extends JpaRepository<Respuesta, Long>
 {
     @Query("SELECT r FROM Respuesta r LEFT JOIN r.documentos LEFT JOIN r.adjuntos " +
-        "WHERE r.providencia = :providencia AND r.movimientoProvidencia is null AND r.user = :userLogged AND " +
+        "WHERE r.providencia = :providencia AND r.movimientoProvidencia is null AND r.jhiuser  = :userLogged AND " +
         "r.estadoProvidencia = :estadoProvidencia")
     Optional<Respuesta> findByProvidencia(@Param("providencia") Providencia providencia, @Param("userLogged") Jhi_user jhiuserLogged,
                                           @Param("estadoProvidencia") String estadoProvidencia);
