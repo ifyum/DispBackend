@@ -1,43 +1,29 @@
-name: Build and Deploy
-
-on:
-  push:
-    branches: [ "develop" ]
-  pull_request:
-    branches: [ "develop" ]
-
+version: 2
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
-    env:
+    docker:
+      - image: circleci/openjdk:11
+      - image: postgres:12.2
+    environment:
       DB_PASSWORD: postgres
-    services:
-      postgres:
-        image: postgres:12.2
-        env:
-          POSTGRES_PASSWORD: pass
-          POSTGRES_DB: mydb
-        ports:
-          # will assign a random free host port
-          - 5432:5432
-        # needed because the postgres container does not provide a healthcheck
-        options: --name postgres --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: 11
-          distribution: 'temurin'
-          cache: maven
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
-      - name: Run Spring Boot application
-        run: |
-          mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/mydb,--spring.datasource.user=postgres,--spring.datasource.password=pass"
-      - name: Test container
-        run: |
-          which psql
-          docker ps
-          docker logs postgres
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Set up PostgreSQL
+          command: |
+            docker run -d --name postgres -e POSTGRES_PASSWORD=pass -e POSTGRES_DB=mydb -p 5432:5432 postgres:12.2
+            sleep 5
+      - run:
+          name: Build with Maven
+          command: mvn -B package --file pom.xml
+      - run:
+          name: Run Spring Boot application
+          command: |
+            mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/mydb,--spring.datasource.user=postgres,--spring.datasource.password=pass"
+      - run:
+          name: Test container
+          command: |
+            which psql
+            docker ps
+            docker logs postgres
