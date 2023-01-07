@@ -29,7 +29,7 @@ public class Grupo implements Serializable {
 
     @OneToMany(mappedBy = "grupo", fetch = FetchType.EAGER)
     @JsonIgnore
-    private Set<User> usuariosEnGrupo = new HashSet<>();
+    private Set<Jhi_user> usuariosEnGrupo = new HashSet<>();
 
     @OneToMany(mappedBy = "derivadoAGrupo", fetch = FetchType.EAGER)
     @JsonIgnore
@@ -72,11 +72,11 @@ public class Grupo implements Serializable {
         this.nombre = nombre;
     }
 
-    public Set<User> getUsuariosEnGrupo() {
+    public Set<Jhi_user> getUsuariosEnGrupo() {
         return usuariosEnGrupo;
     }
 
-    public void setUsuariosEnGrupo(Set<User> usuariosEnGrupo) {
+    public void setUsuariosEnGrupo(Set<Jhi_user> usuariosEnGrupo) {
         this.usuariosEnGrupo = usuariosEnGrupo;
     }
 

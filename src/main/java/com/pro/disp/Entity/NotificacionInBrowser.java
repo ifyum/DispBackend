@@ -34,7 +34,7 @@ public class NotificacionInBrowser implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Jhi_user jhiuser;
 
     //creado por ruben
     @ManyToOne(targetEntity = Grupo.class)
@@ -65,12 +65,12 @@ public class NotificacionInBrowser implements Serializable {
         this.contenido = contenido;
     }
 
-    public User getUser() {
-        return user;
+    public Jhi_user getUser() {
+        return jhiuser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Jhi_user jhiuser) {
+        this.jhiuser = jhiuser;
     }
 
     public Grupo getGrupo() {
@@ -125,7 +125,7 @@ public class NotificacionInBrowser implements Serializable {
         return "NotificacionInBrowser{" +
             "id=" + id +
             ", contenido='" + contenido + '\'' +
-            ", userid=" + user +
+            ", userid=" + jhiuser +
             ", grupo=" + grupo +
             ", createdAt=" + createdAt +
             ", visto=" + visto +

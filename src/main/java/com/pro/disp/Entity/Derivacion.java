@@ -55,10 +55,10 @@ public class Derivacion implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "jhi_user_id")
-    private User derivadoAUsuario;
+    private Jhi_user derivadoAUsuario;
 
     @ManyToOne
-    private User derivadoPorUsuario;
+    private Jhi_user derivadoPorUsuario;
 
     @ManyToOne(targetEntity = Grupo.class)
     private Grupo derivadoAGrupo;
