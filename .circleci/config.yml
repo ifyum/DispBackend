@@ -3,9 +3,9 @@ jobs:
     docker:
       - image: circleci/openjdk:11
       - image: postgres:12.2
-        auth:
-          username: postgres
-          password: 1234
+#        auth:
+#          username: postgres
+#          password: 1234
     environment:
       DB_PASSWORD: postgres
     steps:
