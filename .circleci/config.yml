@@ -3,18 +3,20 @@ jobs:
     docker:
       - image: circleci/openjdk:11
       - image: cimg/postgres:15.1
-  environment:
-    TEST_DATABASE_URL: postgresql://postgres@localhost/circle_test
-    auth:
-      username: mydockerhub-user
-      password: $DOCKERHUB_PASSWORD
+        auth:
+            username: mydockerhub-user
+            password: $DOCKERHUB_PASSWORD
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_DB: mydb
+            POSTGRES_PASSWORD: 1234
     steps:
       - checkout
       - setup_remote_docker
       - run:
           name: Set up PostgreSQL
           command: |
-            docker run -d --name mydockerhub-user -e POSTGRES_PASSWORD=$DOCKERHUB_PASSWORD -e POSTGRES_DB=circle_test -p 5432:5432 postgres:15.1
+            docker run -d --name postgres -e POSTGRES_PASSWORD=1234 -e POSTGRES_DB=mydb -p 5432:5432 postgres:15.1
             sleep 5
       - run:
           name: Build with Maven
@@ -22,7 +24,7 @@ jobs:
       - run:
           name: Run Spring Boot application
           command: |
-            mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/circle_test,--spring.datasource.user=mydockerhub-user,--spring.datasource.password=$DOCKERHUB_PASSWORD"
+            mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/mydb,--spring.datasource.user=postgres,--spring.datasource.password=1234"
       - run:
           name: Test container
           command: |
