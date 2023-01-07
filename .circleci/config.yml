@@ -1,26 +1,43 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
-version: 2.1
+name: Build and Deploy
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
-    steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      DB_PASSWORD: postgres
+    services:
+      postgres:
+        image: postgres:12.2
+        env:
+          POSTGRES_PASSWORD: pass
+          POSTGRES_DB: mydb
+        ports:
+          # will assign a random free host port
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --name postgres --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
-workflows:
-  say-hello-workflow:
-    jobs:
-      - say-hello
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: 'temurin'
+          cache: maven
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+      - name: Run Spring Boot application
+        run: |
+          mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/mydb,--spring.datasource.user=postgres,--spring.datasource.password=pass"
+      - name: Test container
+        run: |
+          which psql
+          docker ps
+          docker logs postgres
