@@ -1,13 +1,5 @@
-name: Build and Deploy
-
-on:
-  push:
-    branches: [ "develop" ]
-  pull_request:
-    branches: [ "develop" ]
-
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     env:
       DB_PASSWORD: postgres
