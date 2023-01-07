@@ -2,9 +2,9 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:11
-      - image: postgres:12.2
-    environment:
-      DB_PASSWORD: 1234
+      - image: cimg/postgres:12.2
+#    environment:
+#      DB_PASSWORD: 1234
     steps:
       - checkout
       - setup_remote_docker
