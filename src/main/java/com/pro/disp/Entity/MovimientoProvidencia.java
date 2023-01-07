@@ -57,7 +57,7 @@ public class MovimientoProvidencia implements Serializable, Comparable<Movimient
     //User assigned
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Jhi_user jhiuser;
 
     @Column(name = "numero_dgd")
     private Long numero_dgd;
@@ -150,12 +150,12 @@ public class MovimientoProvidencia implements Serializable, Comparable<Movimient
         this.comentario = comentario;
     }
 
-    public User getUser() {
-        return user;
+    public Jhi_user getUser() {
+        return jhiuser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Jhi_user jhiuser) {
+        this.jhiuser = jhiuser;
     }
 
     public Long getNumero_dgd() {
@@ -208,7 +208,7 @@ public class MovimientoProvidencia implements Serializable, Comparable<Movimient
             ", providencia=" + providencia +
             ", plazo=" + plazo +
             ", comentario='" + comentario + '\'' +
-            ", user=" + user +
+            ", user=" + jhiuser +
             ", numero_dgd=" + numero_dgd +
             ", numero_dgdp=" + numero_dgdp +
             '}';

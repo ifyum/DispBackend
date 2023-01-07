@@ -37,7 +37,7 @@ public class Respuesta implements Serializable
     private Boolean guardada;
 
     @ManyToOne
-    private User user;
+    private Jhi_user jhiuser;
 
     @Column(name = "estado_providencia")
     private String estadoProvidencia;
@@ -101,12 +101,12 @@ public class Respuesta implements Serializable
         this.guardada = guardada;
     }
 
-    public User getUser() {
-        return user;
+    public Jhi_user getUser() {
+        return jhiuser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Jhi_user jhiuser) {
+        this.jhiuser = jhiuser;
     }
 
     public String getEstadoProvidencia() {
@@ -127,7 +127,7 @@ public class Respuesta implements Serializable
             ", adjuntos=" + adjuntos +
             ", documentos=" + documentos +
             ", guardada=" + guardada +
-            ", user=" + user +
+            ", user=" + jhiuser +
             ", estadoProvidencia=" + estadoProvidencia +
             '}';
     }

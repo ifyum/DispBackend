@@ -24,7 +24,7 @@ import java.util.Set;
 @Entity
 @Table(name = "jhi_user")
 
-public class User extends AbstractAuditingEntity implements Serializable {
+public class Jhi_user extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -33,7 +33,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    public User() {
+    public Jhi_user() {
     }
 
     @NotNull
@@ -217,8 +217,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
             return false;
         }
 
-        User user = (User) o;
-        return !(user.getId() == null || getId() == null) && Objects.equals(getId(), user.getId());
+        Jhi_user jhiuser = (Jhi_user) o;
+        return !(jhiuser.getId() == null || getId() == null) && Objects.equals(getId(), jhiuser.getId());
     }
 
     @Override
