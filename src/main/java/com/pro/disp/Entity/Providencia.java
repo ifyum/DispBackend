@@ -6,7 +6,7 @@ import com.pro.disp.Entity.Enum.EstadoProvidencia;
 import com.pro.disp.Entity.Enum.InstruccionesProvidencia;
 import com.pro.disp.Entity.Enum.TipoProvidencia;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Collection;

@@ -4,7 +4,7 @@ package com.pro.disp.Entity;
 
 import com.pro.disp.Entity.Enum.InstruccionesProvidencia;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Collection;
