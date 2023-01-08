@@ -38,5 +38,6 @@ jobs:
           docker ps
           docker logs postgres
 job-2:
-  Junit-test
-run: mvn -B clean compile test --file pom.xml
+  Junit-test:
+   steps:
+   run: mvn -B clean compile test --file pom.xml
