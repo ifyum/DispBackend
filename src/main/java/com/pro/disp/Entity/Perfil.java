@@ -3,7 +3,7 @@ package com.pro.disp.Entity;
 
 import org.hibernate.annotations.BatchSize;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;

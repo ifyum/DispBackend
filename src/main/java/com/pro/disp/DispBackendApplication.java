@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-
 public class DispBackendApplication {
 
 	public static void main(String[] args) {

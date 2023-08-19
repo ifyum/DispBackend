@@ -3,7 +3,7 @@ package com.pro.disp.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pro.disp.Entity.Enum.EstadoInvestigacionSumaria;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;

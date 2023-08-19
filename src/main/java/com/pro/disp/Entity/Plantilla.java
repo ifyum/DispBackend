@@ -5,7 +5,7 @@ package com.pro.disp.Entity;
 import com.pro.disp.Entity.Enum.EstadoProvidencia;
 import com.pro.disp.Entity.Enum.TipoPlantilla;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 

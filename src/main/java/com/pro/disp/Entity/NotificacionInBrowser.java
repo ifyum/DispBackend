@@ -8,7 +8,7 @@ package com.pro.disp.Entity;
 
 
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
