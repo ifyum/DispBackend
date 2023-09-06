@@ -13,7 +13,7 @@ jobs:
       # Construye el proyecto Spring Boot con Maven
       - run:
           name: Build Spring Boot Project
-          command: ./mvnw clean install  # Ajusta este comando según tu proyecto
+          command: mvnw clean install  # Ajusta este comando según tu proyecto
 
 workflows:
   version: 2
