@@ -1,29 +1,26 @@
-name: SonarQube Analysis
-
-on:
-  push:
-    branches:
-      - main  # Cambia esto al nombre de tu rama principal
-  pull_request:
-    branches:
-      - main  # Cambia esto al nombre de tu rama principal
+version: 2.1  # Usa la versión adecuada de acuerdo a tus necesidades
 
 jobs:
-  sonarqube:
-    runs-on: ubuntu-latest
+  build:
+    docker:
+      - image: circleci/node:14  # La imagen de Docker que deseas usar
+
+    working_directory: ~/repo
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - checkout  # Clona el repositorio
 
-    - name: Set up JDK
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
+      # Agrega pasos aquí para instalar dependencias, ejecutar pruebas, etc.
+      - run:
+          name: Install Dependencies
+          command: npm install
 
-    - name: Run SonarQube Analysis
-      run: |
-        # Ejecuta SonarScanner
-        sonar-scanner
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Agrega tu token de acceso de SonarQube como secreto en tu repositorio
+      - run:
+          name: Run Tests
+          command: npm test
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
