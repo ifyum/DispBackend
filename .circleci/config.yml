@@ -1,0 +1,29 @@
+name: SonarQube Analysis
+
+on:
+  push:
+    branches:
+      - main  # Cambia esto al nombre de tu rama principal
+  pull_request:
+    branches:
+      - main  # Cambia esto al nombre de tu rama principal
+
+jobs:
+  sonarqube:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
+    - name: Run SonarQube Analysis
+      run: |
+        # Ejecuta SonarScanner
+        sonar-scanner
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Agrega tu token de acceso de SonarQube como secreto en tu repositorio
