@@ -1,42 +1,44 @@
-name: Build and Deploy
-
-on:
-  push:
-    branches: [ "develop" ]
-  pull_request:
-    branches: [ "develop" ]
+version: 2.1
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    env:
+  build:
+    docker:
+      - image: circleci/openjdk:11  # Utiliza la versión de Java que necesites
+
+    working_directory: ~/repo
+
+    environment:
       DB_PASSWORD: postgres
-    services:
-      postgres:
-        image: postgres:12.2
-        env:
-          POSTGRES_PASSWORD: 1234
-          POSTGRES_DB: postgres
-        ports:
-          # will assign a random free host port
-          - 5432:5432
-        # needed because the postgres container does not provide a healthcheck
-        options: --name postgres --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: postgres
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: 11
-          distribution: 'temurin'
-          cache: maven
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
-#      - name: Run Spring Boot application
-#        run: |
-#          mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/postgres,--spring.datasource.username=postgres,--spring.datasource.password=1234"
-      - name: Test container
-        run: |
-          docker ps
-          docker logs postgres
+      - checkout
+
+      # Configura permisos para el archivo mvnw
+      - run:
+          name: Set execute permission for mvnw
+          command: chmod +x mvnw
+
+      # Inicia el contenedor de PostgreSQL
+      - run:
+          name: Start PostgreSQL Container
+          command: |
+            docker run -d --name postgres -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_DB=$POSTGRES_DB -p 5432:5432 postgres:12.2
+          background: true
+
+      # Espera a que el contenedor de PostgreSQL se inicie correctamente
+      - run:
+          name: Wait for PostgreSQL to Start
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      # Construye el proyecto Spring Boot con Maven
+      - run:
+          name: Build Spring Boot Project
+          command: ./mvnw clean install  # Ajusta este comando según tu proyecto
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
