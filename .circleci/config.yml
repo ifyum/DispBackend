@@ -1,9 +1,9 @@
-version: 2.1
+version: 2.3
 
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:11  # Utiliza la versión de Java que necesites
+      - image: circleci/openjdk:11
 
     working_directory: ~/repo
 
@@ -12,30 +12,29 @@ jobs:
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: postgres
 
+    services:
+      - name: postgres
+        image: postgres:12.2
+        environment:
+          POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+          POSTGRES_DB: $POSTGRES_DB
+        ports:
+          - "5432:5432"
+
     steps:
       - checkout
 
-      # Configura permisos para el archivo mvnw
       - run:
           name: Set execute permission for mvnw
           command: chmod +x mvnw
 
-      # Inicia el contenedor de PostgreSQL
-      - run:
-          name: Start PostgreSQL Container
-          command: |
-            docker run -d --name postgres -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_DB=$POSTGRES_DB -p 5432:5432 postgres:12.2
-          background: true
-
-      # Espera a que el contenedor de PostgreSQL se inicie correctamente
       - run:
           name: Wait for PostgreSQL to Start
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
-      # Construye el proyecto Spring Boot con Maven
       - run:
           name: Build Spring Boot Project
-          command: ./mvnw clean install  # Ajusta este comando según tu proyecto
+          command: ./mvnw clean install
 
 workflows:
   version: 2
