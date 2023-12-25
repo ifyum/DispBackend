@@ -33,10 +33,20 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn -B package --file pom.xml
-#      - name: Run Spring Boot application
-#        run: |
-#          mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://localhost:5432/postgres,--spring.datasource.username=postgres,--spring.datasource.password=1234"
       - name: Test container
         run: |
           docker ps
           docker logs postgres
+
+  Junit-test:
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v3
+     - name: Set up JDK
+       uses: actions/setup-java@v3
+       with:
+         java-version: 11
+         distribution: 'temurin'
+         cache: maven
+     - name: Test with Maven
+       run: mvn test
