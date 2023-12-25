@@ -28,8 +28,7 @@ public class Derivacion implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "derivacion_sequence")
-    @SequenceGenerator(name = "derivacion_sequence", sequenceName = "sequence_generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "observacion")

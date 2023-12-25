@@ -15,9 +15,9 @@ public class SumarioAdministrativo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "campo_uno")

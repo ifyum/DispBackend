@@ -14,6 +14,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.transaction.Transactional;
+
 import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -27,14 +30,14 @@ class DerivacionRepositoryTest {
     private DerivacionRepository derivacionRepository;
 
     @Test
+    @Transactional
     public void testFindLastByProvidencia() {
         // Arrange
-        Providencia providencia = new Providencia(); // You might need to set up Providencia entity as well
-        // Set up other necessary fields in Providencia entity
+        Providencia providencia = new Providencia();
+        providencia = entityManager.persist(providencia);  // Persistir Providencia
 
         Derivacion derivacion = new Derivacion();
         derivacion.setProvidencia(providencia);
-        // Set up other necessary fields in Derivacion entity
         derivacion = entityManager.persist(derivacion);
         entityManager.flush();
 
@@ -45,5 +48,7 @@ class DerivacionRepositoryTest {
         assertThat(result.size()).isGreaterThan(0);
         // Add more assertions based on your requirements
     }
+
+
 
 }
